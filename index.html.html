@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Fatwa Munakahat | Portal Fiqh Kekeluargaan Islam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy: #102A43;
+            --navy-dark: #0A1929;
+            --blue: #1D4ED8;
+            --royal: #2563EB;
+            --light-blue: #EFF6FF;
+            --border-blue: #DBEAFE;
+            --gold: #D4AF37;
+            --gold-light: #FDF8E7;
+            --gold-shining: #FFD700;
+            --white: #FFFFFF;
+            --bg: #F8FAFC;
+            --text: #1E293B;
+            --muted: #475569;
+            --border: #E2E8F0;
+            --radius: 14px;
+            --shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--navy); line-height: 1.25; }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; cursor: pointer; }
+        .container { max-width: 1220px; margin: 0 auto; padding: 0 20px; width: 100%; }
+
+        /* LINE KUNING SHINING GOLD PREMIUM */
+        .gold-divider-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #F59E0B 15%, #FFD700 50%, #F59E0B 85%, transparent 100%);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.55), 0 0 2px rgba(212, 175, 55, 0.8);
+            border: none;
+            margin: 28px 0;
+        }
+
+        /* NAVBAR & BAR 8 HALAMAN */
+        .navbar {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--navy); color: var(--white);
+            border-bottom: 2px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        .brand { display: flex; align-items: center; gap: 12px; background: none; border: none; color: var(--white); text-align: left; }
+        .brand-icon {
+            width: 42px; height: 42px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--blue), var(--navy-dark));
+            border: 1.5px solid var(--gold); color: var(--gold);
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        .brand-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; display: block; }
+        .brand-sub { font-size: 0.72rem; color: #CBD5E1; display: block; }
+
+        .page-tabs-bar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 72px; z-index: 990;
+            box-shadow: 0 4px 12px rgba(16,42,67,0.05);
+        }
+        .tabs-scroll {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 0; overflow-x: auto; scrollbar-width: thin;
+        }
+        .tab-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 15px; border-radius: 50px;
+            border: 1.5px solid var(--border); background: var(--bg);
+            color: var(--muted); font-size: 0.82rem; font-weight: 700;
+            white-space: nowrap; transition: 0.25s;
+        }
+        .tab-btn .num {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #E2E8F0; color: var(--navy);
+            display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem;
+        }
+        .tab-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--light-blue); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: var(--white); border-color: var(--navy);
+        }
+        .tab-btn.active .num { background: var(--gold); color: var(--navy-dark); }
+
+        /* SISTEM PAPARAN HALAMAN */
+        main { flex: 1; padding-bottom: 50px; }
+        .page-view { display: none; animation: fadeIn 0.3s ease; }
+        .page-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO & HALAMAN 1 */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #173A5E 60%, #1E40AF 100%);
+            color: var(--white); padding: 56px 0 64px;
+            border-bottom: 3px solid var(--gold);
+        }
+        .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+        .badge-gold {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 7px 18px; border-radius: 50px;
+            background: rgba(255,255,255,0.06); border: 1.5px solid rgba(212, 175, 55, 0.55);
+            color: #FDE68A; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 18px;
+        }
+        .badge-gold i { color: var(--gold); font-size: 0.85rem; }
+        .hero h1 {
+            color: var(--white); font-size: 3.2rem; font-weight: 800; margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 span { color: var(--gold); }
+        .hero-subtitle-text {
+            font-size: 1.25rem; font-weight: 700; color: #FFFFFF;
+            line-height: 1.45; margin-bottom: 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hero-desc-text {
+            color: #CBD5E1; font-size: 1rem; line-height: 1.7;
+            margin-bottom: 26px; max-width: 580px;
+        }
+        .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+        .btn-gold {
+            padding: 13px 26px; border-radius: 8px; border: none;
+            background: linear-gradient(135deg, var(--gold), #B59024);
+            color: var(--navy-dark); font-weight: 700; font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3);
+            transition: 0.25s;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.4); }
+
+        /* BAHAGIAN HERO STATS */
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 36px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .stat-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .stat-box-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        .stat-box-text strong {
+            display: block;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.25;
+            letter-spacing: -0.2px;
+        }
+        .stat-box-text span {
+            display: block;
+            font-size: 0.85rem;
+            color: #CBD5E1;
+            line-height: 1.35;
+            margin-top: 3px;
+        }
+
+        .hero-card-img {
+            border-radius: 18px; overflow: hidden; border: 2px solid var(--gold);
+            position: relative; aspect-ratio: 4/3; background: var(--navy-dark);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .hero-card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(16,42,67,0.92), transparent 60%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 22px;
+        }
+        .arabic { font-family: 'Amiri', serif; font-size: 1.35rem; color: var(--gold); }
+
+        /* SEKSI DALAM HALAMAN */
+        .sec-box { margin-top: 40px; }
+        .sec-title-wrap { text-align: center; max-width: 700px; margin: 0 auto 30px; }
+        .sec-title-wrap h2 { font-size: 2rem; margin-bottom: 8px; }
+        .sec-title-wrap p { color: var(--muted); font-size: 0.95rem; }
+
+        /* KAD DIREKTORI KATEGORI */
+        .dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .dir-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-top: 4px solid var(--blue); border-radius: var(--radius);
+            padding: 24px; box-shadow: var(--shadow);
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: 0.25s;
+        }
+        .dir-card:hover { transform: translateY(-4px); border-top-color: var(--gold); }
+        .dir-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .dir-badge { font-size: 0.74rem; font-weight: 800; padding: 4px 10px; border-radius: 50px; background: var(--light-blue); color: var(--blue); }
+        .dir-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .dir-card h3 { font-size: 1.22rem; margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .dir-card p { font-size: 0.88rem; color: var(--muted); margin-bottom: 18px; }
+        .dir-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+        .btn-go {
+            padding: 8px 16px; border-radius: 8px; border: none;
+            background: var(--blue); color: var(--white); font-size: 0.84rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-go:hover { background: var(--navy); color: var(--gold); }
+
+        /* KOTAK PENGENALAN */
+        .intro-card {
+            background: var(--white); border: 1px solid var(--border-blue);
+            border-left: 5px solid var(--gold); border-radius: var(--radius);
+            padding: 32px; box-shadow: var(--shadow);
+        }
+        .intro-card p { margin-bottom: 14px; text-align: justify; font-size: 0.96rem; }
+
+        /* PANEL CARIAN PINTAR */
+        .search-box {
+            background: linear-gradient(135deg, var(--navy), #1E3A8A);
+            padding: 28px; border-radius: var(--radius); color: var(--white);
+            box-shadow: var(--shadow);
+        }
+        .search-row { display: grid; grid-template-columns: 1.5fr 1fr auto auto; gap: 10px; }
+        .inp, .sel {
+            height: 46px; padding: 0 14px; border-radius: 8px;
+            border: 1px solid var(--border); font-size: 0.92rem; font-family: inherit; width: 100%;
+        }
+        .quick-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; font-size: 0.8rem; }
+        .q-tag {
+            padding: 4px 12px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1); color: var(--white); font-size: 0.78rem;
+        }
+        .q-tag:hover { background: var(--gold); color: var(--navy-dark); }
+
+        /* HEADER HALAMAN KATEGORI */
+        .page-Subheader {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 12px; background: var(--white); border: 1px solid var(--border);
+            padding: 14px 20px; border-radius: 12px; margin: 24px 0 20px;
+        }
+        .cat-hero-banner {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: var(--white); padding: 30px; border-radius: var(--radius);
+            border-bottom: 4px solid var(--gold); margin-bottom: 24px;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .cat-hero-banner h2 { color: var(--white); font-size: 1.75rem; margin-bottom: 6px; }
+        .cat-hero-banner p { color: #DBEAFE; font-size: 0.92rem; max-width: 720px; }
+        .cat-toolbar {
+            display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        /* KAD SOALAN & ACCORDION FATWA */
+        .fatwa-list { display: flex; flex-direction: column; gap: 16px; }
+        .fatwa-card {
+            background: var(--white); border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .fatwa-card.open { border-color: var(--blue); box-shadow: var(--shadow); }
+        .fatwa-head {
+            padding: 20px 24px; display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 16px;
+        }
+        .fatwa-card.open .fatwa-head { background: var(--light-blue); border-bottom: 1px solid var(--border-blue); }
+        .meta-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+        .pill-num { background: var(--navy); color: var(--gold); font-size: 0.74rem; font-weight: 700; padding: 3px 10px; border-radius: 6px; }
+        .pill-src { background: var(--light-blue); color: var(--blue); border: 1px solid var(--border-blue); font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 6px; }
+        .fatwa-q { font-size: 1.06rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .fatwa-art { font-size: 0.84rem; color: var(--muted); }
+        .fatwa-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+        .btn-ans {
+            padding: 9px 15px; border-radius: 8px; border: none;
+            background: var(--blue); color: var(--white); font-size: 0.82rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .fatwa-card.open .btn-ans { background: var(--navy); color: var(--gold); }
+        .btn-ext {
+            padding: 8px 13px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--white); color: var(--navy); font-size: 0.82rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-ext:hover { border-color: var(--blue); color: var(--blue); }
+        .fatwa-body { display: none; padding: 22px 24px; background: var(--white); }
+        .fatwa-card.open .fatwa-body { display: block; }
+        .ans-box {
+            background: var(--bg); border-left: 4px solid var(--blue);
+            padding: 18px 20px; border-radius: 0 8px 8px 0; font-size: 0.95rem;
+        }
+        .ans-box p { margin-bottom: 10px; }
+        .ans-box p:last-child { margin-bottom: 0; }
+        .ans-url { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.8rem; color: var(--muted); word-break: break-all; }
+
+        /* NAVIGASI BAWAH ANTARA HALAMAN */
+        .pager-bar {
+            display: flex; justify-content: space-between; gap: 14px;
+            margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+        }
+        .btn-pager {
+            padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border);
+            background: var(--white); color: var(--navy); font-weight: 700; font-size: 0.88rem;
+            display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--shadow);
+        }
+        .btn-pager:hover { border-color: var(--blue); background: var(--light-blue); color: var(--blue); }
+
+        /* JADUAL RUJUKAN */
+        .table-wrap { background: var(--white); border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; box-shadow: var(--shadow); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background: var(--navy); color: var(--white); padding: 14px 16px; font-size: 0.82rem; text-transform: uppercase; }
+        td { padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+        tr:hover td { background: var(--light-blue); }
+
+        /* FOOTER MODERN & RELEVAN */
+        footer {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: #CBD5E1;
+            padding: 50px 0 24px;
+            border-top: 4px solid var(--gold);
+            margin-top: auto;
+        }
+        .footer-grid-nav {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+        .footer-col-title {
+            color: var(--white);
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-col-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 28px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-link-btn {
+            background: none;
+            border: none;
+            color: #CBD5E1;
+            font-size: 0.85rem;
+            text-align: left;
+            padding: 4px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s ease;
+        }
+        .footer-link-btn i {
+            color: var(--gold);
+            font-size: 0.72rem;
+        }
+        .footer-link-btn:hover {
+            color: var(--white);
+            transform: translateX(4px);
+        }
+        .footer-quick-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .footer-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #E2E8F0;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.25s;
+        }
+        .footer-chip:hover {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        .foot-bottom {
+            text-align: center;
+            font-size: 0.86rem;
+            color: #94A3B8;
+            padding-top: 14px;
+        }
+
+        @media (max-width: 920px) {
+            .hero-grid, .dir-grid, .search-row, .footer-grid-nav { grid-template-columns: 1fr; }
+            .fatwa-head, .pager-bar { flex-direction: column; }
+            .hero-stats { gap: 20px; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+
+        /* PEMBAIKAN RESPONSIVE: TABLET DAN TELEFON */
+        html { -webkit-text-size-adjust: 100%; }
+        body { min-width: 0; overflow-wrap: anywhere; }
+        img, video, iframe { max-width: 100%; }
+        input, select, textarea, button { max-width: 100%; }
+        .container { min-width: 0; }
+        .hero-grid > *, .dir-grid > *, .search-row > *, .footer-grid-nav > * { min-width: 0; }
+        .hero-card-img img { display: block; }
+        .fatwa-q, .fatwa-art, .ans-box, td, th { overflow-wrap: anywhere; }
+
+        @media (max-width: 768px) {
+            .container { padding-left: 16px; padding-right: 16px; }
+            .nav-inner {
+                height: auto;
+                min-height: 72px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            .nav-inner > div { display: flex !important; flex-wrap: wrap; gap: 8px !important; }
+            .nav-inner > div button { flex: 1 1 auto; justify-content: center; }
+            .brand { min-width: 0; max-width: 100%; }
+            .brand-title { font-size: 1.05rem; }
+            .brand-sub { font-size: 0.68rem; }
+            .page-tabs-bar { top: 0; }
+            .tabs-scroll { padding-top: 8px; padding-bottom: 8px; }
+            .hero { padding: 36px 0 40px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+            .hero h1 { font-size: clamp(2rem, 8vw, 2.5rem); overflow-wrap: anywhere; }
+            .hero-subtitle-text { font-size: 1.08rem; }
+            .hero-stats { gap: 16px; }
+            .stat-box { min-width: 0; }
+            .dir-grid { grid-template-columns: minmax(0, 1fr); }
+            .search-row { grid-template-columns: minmax(0, 1fr); }
+            .search-box, .intro-card { padding: 20px; }
+            .page-Subheader { padding: 12px 14px; }
+            .cat-hero-banner { padding: 22px; }
+            .cat-hero-banner h2 { font-size: 1.45rem; }
+            .fatwa-head { padding: 16px; gap: 12px; }
+            .fatwa-actions { width: 100%; }
+            .fatwa-actions button { flex: 1 1 auto; justify-content: center; }
+            .fatwa-body { padding: 16px; }
+            .ans-box { padding: 15px; }
+            .pager-bar { flex-direction: column; }
+            .btn-pager { justify-content: center; }
+            .footer-grid-nav { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+            .sec-title-wrap h2 { font-size: 1.65rem; }
+        }
+
+        @media (max-width: 420px) {
+            .container { padding-left: 12px; padding-right: 12px; }
+            .brand-icon { width: 36px; height: 36px; flex-shrink: 0; }
+            .brand-title { font-size: 0.96rem; }
+            .brand-sub { font-size: 0.62rem; }
+            .nav-inner > div button { font-size: 0.72rem !important; padding: 8px 10px !important; }
+            .hero h1 { font-size: 1.9rem; }
+            .btn-gold { padding: 11px 15px; }
+            .dir-card { padding: 18px; }
+            .table-wrap table { min-width: 620px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR UTAMA -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <button type="button" class="brand" onclick="switchPage(1)">
+                <div class="brand-icon"><i class="fa-solid fa-mosque"></i></div>
+                <div>
+                    <span class="brand-title">e-Fatwa Munakahat</span>
+                    <span class="brand-sub">Portal Fiqh Kekeluargaan Islam</span>
+                </div>
+            </button>
+            <div style="display:flex; gap:8px;">
+                <button type="button" class="btn-gold" style="padding:8px 14px; font-size:0.82rem;" onclick="switchPage(1)">
+                    <i class="fa-solid fa-house"></i> Halaman Utama
+                </button>
+                <button type="button" class="btn-ghost" style="padding:8px 14px; font-size:0.82rem; border:1px solid rgba(255,255,255,0.3); background:transparent; color:#fff;" onclick="switchPage(8)">
+                    <i class="fa-solid fa-book"></i> Sumber Rujukan
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BAR NAVIGASI 8 HALAMAN -->
+    <nav class="page-tabs-bar" aria-label="Navigasi Kategori Fiqh">
+        <div class="container">
+            <div class="tabs-scroll" id="topTabsContainer"></div>
+        </div>
+    </nav>
+
+    <!-- KANDUNGAN DINAMIK 8 HALAMAN -->
+    <main id="appPagesRoot"></main>
+
+    <!-- FOOTER DIKEMASKINI: GARISAN EMAS SHINING GOLD & TAHUN 2026 -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid-nav">
+                <!-- Kolum 1: Pengenalan & Matlamat -->
+                <div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <div class="brand-icon" style="width:36px; height:36px; font-size:1rem;"><i class="fa-solid fa-mosque"></i></div>
+                        <strong style="color:#fff; font-size:1.15rem;">e-Fatwa Munakahat</strong>
+                    </div>
+                    <p style="font-size:0.85rem; line-height:1.7; color:#CBD5E1; margin-bottom:14px;">
+                        Wadah rujukan digital dan pendidikan hukum Islam berkaitan Fiqh Munakahat dan Ahwal Syakhsiyyah di Malaysia. Portal ini berfungsi sebagai rujukan ilmiah sahaja tanpa menggantikan autoriti Institusi Fatwa & Mahkamah Syariah di Malaysia
+                    </p>
+                    <div class="footer-quick-chips">
+                        <button type="button" class="footer-chip" onclick="switchPage(1)"><i class="fa-solid fa-magnifying-glass"></i> Carian Pintar</button>
+                        <button type="button" class="footer-chip" onclick="switchPage(8)"><i class="fa-solid fa-building-columns"></i> Sumber Rasmi</button>
+                    </div>
+                </div>
+
+                <!-- Kolum 2: Kategori Fiqh Munakahat (HANYA NAMA FIQH SAHAJA) -->
+                <div>
+                    <h4 class="footer-col-title">Kategori Fiqh Munakahat</h4>
+                    <ul class="footer-links-list">
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(2)"><i class="fa-solid fa-chevron-right"></i> Fiqh Perkahwinan & Kafa’ah</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(3)"><i class="fa-solid fa-chevron-right"></i> Fiqh Talak & Perceraian</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(4)"><i class="fa-solid fa-chevron-right"></i> Fiqh Nasab & Status Anak</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(5)"><i class="fa-solid fa-chevron-right"></i> Fiqh Iddah</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(6)"><i class="fa-solid fa-chevron-right"></i> Fiqh Nafkah</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(7)"><i class="fa-solid fa-chevron-right"></i> Fiqh Harta Sepencarian</button></li>
+                    </ul>
+                </div>
+
+                <!-- Kolum 3: Bahagian & Institusi Rujukan -->
+                <div>
+                    <h4 class="footer-col-title">Pautan & Institusi Rujukan</h4>
+                    <ul class="footer-links-list">
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(1); window.scrollTo({top: 0, behavior: 'smooth'});"><i class="fa-solid fa-house"></i> Halaman Utama Portal</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(1); document.getElementById('pengenalan-box').scrollIntoView({behavior: 'smooth'});"><i class="fa-solid fa-circle-info"></i> Latar Belakang & Pengenalan</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(8)"><i class="fa-solid fa-table-list"></i> Jadual Penuh 45 Artikel Sumber</button></li>
+                        <li><button type="button" class="footer-link-btn" onclick="switchPage(8)"><i class="fa-solid fa-shield-halved"></i> Panduan Fatwa Syariah</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- GARISAN KUNING SHINING GOLD PREMIUM -->
+            <div class="gold-divider-line"></div>
+
+            <!-- Hak Cipta 2026 -->
+            <div class="foot-bottom">
+                &copy; 2026 e-Fatwa Munakahat. Hak Cipta Terpelihara.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ==========================================================================
+           1. KONFIGURASI 8 HALAMAN
+           ========================================================================== */
+        const PAGES_CONFIG = [
+            { page: 1, short: "Utama & Carian", title: "Halaman Utama, Pengenalan & Carian", icon: "fa-solid fa-house", isCategory: false },
+            { page: 2, short: "Perkahwinan & Kafa’ah", title: "Fiqh Perkahwinan dan Kafa’ah", icon: "fa-solid fa-ring", isCategory: true, desc: "Syarat sah akad nikah, perwalian, kafa'ah (sekufu), adat perkahwinan, nikah online serta mas kahwin kontemporari." },
+            { page: 3, short: "Talak & Perceraian", title: "Fiqh Talak & Perceraian", icon: "fa-solid fa-scale-unbalanced", isCategory: true, desc: "Lafaz perceraian melalui aplikasi komunikasi moden, suami mafqud, pengulangan talak, taklik serta tuntutan fasakh." },
+            { page: 4, short: "Nasab & Status Anak", title: "Fiqh Nasab & Status Anak", icon: "fa-solid fa-sitemap", isCategory: true, desc: "Pengiraan 6 bulan Qamariyyah, status anak tidak sah taraf, pewarisan faraid, ibu tumpang, bayi tabung uji (IVF) & bank sperma." },
+            { page: 5, short: "Fiqh Iddah", title: "Fiqh Iddah", icon: "fa-solid fa-hourglass-half", isCategory: true, desc: "Tempoh dan adab beriddah bagi wanita bercerai atau kematian suami, keluar bekerja, ibadah umrah/haji serta live media sosial." },
+            { page: 6, short: "Fiqh Nafkah", title: "Fiqh Nafkah", icon: "fa-solid fa-hand-holding-dollar", isCategory: true, desc: "Kewajipan penyediaan nafkah terhadap isteri bekerja, ibu bapa serta anak-anak menurut Mazhab Syafie dan Undang-Undang Keluarga Islam." },
+            { page: 7, short: "Harta Sepencarian", title: "Fiqh Harta Sepencarian", icon: "fa-solid fa-house-lock", isCategory: true, desc: "Konsep asas dan amalan perundangan Syariah di Malaysia mengenai hak tuntutan harta sepencarian oleh suami, isteri mahupun waris." },
+            { page: 8, short: "Sumber Rujukan", title: "Sumber Rujukan & Penafian", icon: "fa-solid fa-building-columns", isCategory: false }
+        ];
+
+        /* ==========================================================================
+           2. DATA LENGKAP 45 ARTIKEL FATWA
+           ========================================================================== */
+        const FATWA_LIST = [
+            // HALAMAN 2: FIQH PERKAHWINAN DAN KAFA’AH (13 Artikel)
+            {
+                id: "pk-1", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Perkahwinan Bawah Umur",
+                articleTitle: "“BAYAN LINNAS SIRI KE-141 : PERKAHWINAN KANAK-KANAK MENGIKUT PERSPEKTIF SYARIAH”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/en/artikel/bayan-linnas/2512-bayan-linnas-siri-ke-141-perkahwinan-kanak-kanak-mengikut-perspektif-syariah",
+                answer: "Hukum perkahwinan kanak-kanak hendaklah mengikuti undang-undang yang telah ditetapkan di dalam sesebuah negara. Sekiranya sesebuah negara menetapkan di dalam undang-undangnya had umur yang tertentu bagi seseorang untuk berkahwin, maka hal tersebut menjadi satu kewajipan yang wajib dipatuhi. Undang-undang Keluarga Islam di Malaysia secara keseluruhannya memperuntukkan bahawa umur minimum untuk akad nikah bagi lelaki adalah mestilah berumur sekurang-kurangnya 18 tahun manakala bagi perempuan pula ialah sekurang-kurangnya 16 tahun. Namun begitu, perkahwinan di bawah umur boleh dilakukan sekiranya mendapat kebenaran bertulis daripada Hakim Syarie dalam keadaan tertentu."
+            },
+            {
+                id: "pk-2", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Nikah Lari di Thailand",
+                articleTitle: "“IRSYAD HUKUM SIRI KE-256 : NIKAH SIAM TANPA WALI MUJBIR”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/2670-irsyad-al-fatwa-siri-ke-256-nikah-siam-tanpa-wali-mujbir?templateStyle=17",
+                answer: "Muzakarah Jawatankuasa Fatwa Majlis Kebangsaan: Sah jika pernikahan tersebut memenuhi rukun nikah iaitu melebihi 2 marhalah drpd wali mujbir, mahkamah tidak menghalang perkahwinan perempuan tersebut & wali hakim yang digunakan wali hakim yang diiktiraf dan bertauliah di wilayah tempat akad perkahwinan dijalankan."
+            },
+            {
+                id: "pk-3", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Pernikahan dengan Saudara Susuan",
+                articleTitle: "“IRSYAD FATWA SIRI KE-667: HUKUM PERKAHWINAN SAUDARA SUSUAN DAN STATUS ANAK”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-umum-cat/5124-irsyad-fatwa-siri-ke-667-hukum-perkahwinan-saudara-susuan-dan-status-anak",
+                answer: "Ulama’ bersepakat bahawa pernikahan dengan saudara susuan menjadi pernikahan fasid kerana sesama susuan. Mereka juga bersepakat bahawa anak-anak yang lahir hasil daripada perkahwinan fasid itu boleh dinasabkan kepada bapa mereka sebagaimana pernikahan yang sah kerana perkara itu bersifat teknikal bukannya disengajakan. Maka anak tersebut bukan anak tak sah taraf akan tetapi anak tersebut dipanggil anak *watiq syubhah* dan pernikahan tersebut wajib dipisahkan serta merta dan tiada istilah cerai kerana pernikahan itu pernikahan fasid."
+            },
+            {
+                id: "pk-4", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Pengantin Perempuan Mengahwinkan Dirinya Sendiri tanpa Wali",
+                articleTitle: "“AL-KAFI #879 : NIKAH TANPA BERWALIKAN BAPA”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/2733-al-kafi-879-nikah-tanpa-berwalikan-bapa",
+                answer: "Wali merupakan salah satu daripada rukun nikah. Jika tiada wali maka akad perkahwinan itu dikira akad yang fasid. Sama juga isu bagi penggunaan wali ab’ad (datuk sebelah bapa) atau wali hakim sedangkan wali aqrab (ayah) yang layak menjadi wali masih ada. Perkahwinan tersebut menjadi tidak sah dan kedua-duanya wajib dipisahkan. Jika sudah melakukan jimak, maka perempuan itu wajib mendapat mahar mithil sama ada mahar tersebut disebut atau tidak disebut dalam akad. Namun, jika wali tersebut enggan menjadi wali (*wali a’dhal*) walaupun setelah mendapat perintah mahkamah maka yang menjadi wali untuk pengantin perempuan itu adalah wali hakim berdasarkan bidang kuasa yang diperuntukkan di bawah Seksyen 13 (b), Akta Undang-Undang Keluarga Islam (Wilayah Persekutuan) 1984."
+            },
+            {
+                id: "pk-5", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Pernikahan dengan Anak Tidak Sah Taraf",
+                articleTitle: "“AL-KAFI #1780: HUKUM BERKAHWIN DENGAN ANAK TIDAK SAH TARAF”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/4733-al-kafi-1780-hukum-berkahwin-dengan-anak-tidak-sah-taraf",
+                answer: "Anak tidak sah taraf (anak luar nikah) tidak boleh diwalikan oleh bapa biologinya sendiri kerana tiada nasab yang sah/diiktiraf disisi syarak. Jika pengantin perempuan tidak mempunyai wali yang sah menurut hukum syarak maka pewalian tersebut akan berpindah kepada wali hakim. Seksyen 7(2) Akta Undang-Undang Keluarga Islam (Wilayah-Wilayah Persekutuan) 1984 memperuntukkan secara jelas sekiranya tidak mempunyai wali nasab yang sah menurut syarak, maka perkahwinan tersebut akan diwalikan oleh wali hakim. Maka secara automatiknya perkahwinan dengan wanita yang tidak sah taraf tersebut dikira sah menurut hukum syarak kerana menepati syarat-syarat serta rukun yang ditetapkan oleh syarak."
+            },
+            {
+                id: "pk-6", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Perkahwinan Online",
+                articleTitle: "“Nikah online”",
+                sourceName: "Jabatan Mufti Negeri Sembilan",
+                sourceUrl: "https://muftins.gov.my/soaljawab/nikah-online/",
+                answer: "Mesyuarat Jawatankuasa Fatwa Negeri Sembilan 2012 memutuskan bahawa melakukan akad nikah menerusi sidang video secara online adalah dibolehkan kerana ia merupakan akad yang diterima syarak. Hal ini kerana para fuqaha’ bersepakat mensyaratkan bahawa bagi memastikan sesuatu akad tu sah, akad tu mesti dilakukan dalam satu majlis (*ittihad al-majlis*) supaya semuanya terlibat secara langsung semasa pelaksanaan ijab dan qabul dan *ittihad al-majlis* ini dikelaskan sebagai *ittihad al-majazi*. Oleh itu dibolehkan nikah online apabila cukup syarat-syaratnya:\ni) Majlis berlangsung tahap yakin bukan zhan.\nii) Tiada unsur penipuan (gharar) dan keraguan.\niii) Cukup semua rukun dan syarat sah nikah menurut syarak & digalakkan wali sendiri yang akad nikah.\niv) Terdapat halangan utk akad nikah di tempat yang ditentukan seperti duduk jauh luar negara/sakit.\nv) Tertakluk kpd semua peraturan dan undang-undang."
+            },
+            {
+                id: "pk-7", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Akad Nikah Melalui Wakil",
+                articleTitle: "“AL-KAFI #1769: HUKUM AYAH PENGANTIN LELAKI MEWAKILI ANAKNYA KETIKA AKAD NIKAH”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/4691-al-kafi-1768-hukum-ayah-pengantin-lelaki-mewakili-anaknya-ketika-akad-nikah",
+                answer: "Jika pengantin lelaki/wali asal mewakilkan orang lain utk menjalankan tanggungjawab melafazkan ijab dan qabul, maka hukumnya tetap sah sama ada mereka berada dalam majlis secara langsung ataupun mereka duduk jauh di tempat lain. Berdasarkan dalil-dalil, jelas menunjukkan dibolehkan mewakilkan orang lain utk menjalankan tanggungjawab ijab dan qabul tersebut tetapi dengan syarat wakil tersebut wajib sebut bahawa dirinya itu menerima akad sebagai wakil bagi pengantin lelaki supaya jelas dan tidak berlaku salah fhm."
+            },
+            {
+                id: "pk-8", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Berkahwin dengan Orang yang Bermazhab Ibadi",
+                articleTitle: "“IRSYAD FATWA SIRI KE-674: HUKUM PERKAHWINAN DENGAN PASANGAN MAZHAB IBADI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/5151-irsyad-fatwa-siri-ke-674-hukum-perkahwinan-dengan-pasangan-mazhab-ibadi",
+                answer: "Mazhab *Ibadi* merupakan kelompok Islam yang sesat dan terkeluar dari Aliran Ahlu al-Sunnah Wa al-Jama'ah (ASWAJA) tetapi mereka masih lagi Bergama Islam. Mereka ini merupakan kelompok yang melampau dalam agama, jahil terhadap agama, berkeras dengan sesama Islam, mengkafirkan orang yang melakukan dosa besar dan menghina sebahagian sahabat. Hukum berkahwin dengan mereka yang bermazhab *Ibadi* adalah sah kerana mereka masih lagi dianggap sebagai Islam tetapi kita dinasihatkan supaya mencari pasangan yang berakidah ASWAJA kerana perkahwinan dengan orang yang tidak bermazhab ASWAJA dikhuatiri akan menyebabkan seseorang itu terpengaruh dengan akidah yang sesat."
+            },
+            {
+                id: "pk-9", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Menjadikan BitCoin sebagai Mahar",
+                articleTitle: "“AL-KAFI #1822: HUKUM MENJADIKAN MATAWANG KRIPTO SEBAGAI MAS KAHWIN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ar/artikel/al-kafi-li-al-fatawi/4958-al-kafi-1822-hukum-menjadikan-matawang-kripto-sebagai-mas-kahwin",
+                answer: "Bank Negara Malaysia (BNM) tidak mengiktiraf bahawa BitCoin merupakan mata wang rasmi di Malaysia dan ia masih belum dianggap sebagai medium pertukaran yang sah sebagaimana Duit Ringgit (RM). Walaupun BitCoin masih belum dianggap mata wang yang sah tetapi ia dianggap sebagai suatu barang komoditi yang boleh diperdagangkan dan dijadikan aset pelaburan. Melalui konsep ini, maka BitCoin sah untuk dijadikan sebagai salah satu bentuk mahar kerana dianggap sebagai suatu barangan yang ada nilai sama seperti barang-barang yang lain."
+            },
+            {
+                id: "pk-10", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Hukum Saham dijadikan Mahar",
+                articleTitle: "“#174 Saham Sebagai Mas Kahwin”",
+                sourceName: "Portal Rasmi Dr. Zulkifli Mohamad Al-Bakri",
+                sourceUrl: "https://zulkiflialbakri.com/artikel/saham-sebagai-mas-kahwin",
+                answer: "Mas kahwin/mahar perlulah sesuatu yang bernilai dan berharga menurut syarak. Oleh itu, dibolehkan memberi mahar dalam bentuk pengangan saham kepada isteri kerana saham juga termasuk dalam harta yang bernilai di sisi syarak tetapi syaratnya perlu dinyatakan berapa nilainya agar difahami dengan jelas jika ditukarkan kepada nilai duit."
+            },
+            {
+                id: "pk-11", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Adakah Amalan Mengarak Pengantin secara Dipikul dengan Iringan Paluan Kompang dan Pemasangan Lilin Dibenarkan di sisi Syarak",
+                articleTitle: "“Adat dalam perkahwinan”",
+                sourceName: "Jabatan Mufti Negeri Sembilan",
+                sourceUrl: "https://muftins.gov.my/soaljawab/adat-dalam-perkahwinan/",
+                answer: "Secara asasnya mengadakan majlis perkahwinan berdasarkan budaya dan adat masing-masing dibenarkan di sisi syarak selagimana tidak bertentangan dengan ajaran Islam. Memukul kompang dalam majlis perkahwinan juga dibenarkan kerana pada zaman Rasulullah SAW juga telah ada perbuatan memukul gendang-gendang (kompang) bagi mengiklankan perkahwinan."
+            },
+            {
+                id: "pk-12", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Apakah Hukum Perkahwinan Syarifah & Bukan Syed dari Perspektif Kafa’ah menurut Hukum Syarak",
+                articleTitle: "“Kafa’ah Syed & Syarifah”",
+                sourceName: "Portal e-Musykil Jabatan Mufti Negeri Selangor",
+                sourceUrl: "https://emusykil.muftiselangor.gov.my/index.php/site/jawapan?id=5446",
+                answer: "Pandangan Muktamad Mazhab Syafie mengatakan bahawasanya kafa’ah ialah syarat lazim pernikahan bukannya syarat sah nikah di mana ia merupakan kriteria yang tidak menjejaskan status sah sesuatu akad tetapi ia diletakkan bagi melindungi hak dan kepentingan pihak yang terlibat. Oleh itu, pernikahan yang dilangsungkan antara Syarifah dengan lelaki biasa yang bukan Syed tetap sah di sisi syarak. Dakwaan yang mengatakan jika berkahwin seperti ini dikira berdosa kerana memutuskan nasab Nabi SAW adalah sesuatu dakwaan yang tidak benar. Jika bapa (wali) tidak bersetuju dengan perkahwinan ini dengan alasan tidak sekufu, maka pihak Mahkamah Syariah boleh menilai permohonan tersebut untuk menggunakan wali hakim setelah meneliti kelayakan bakal suami tersebut lulus dari sudut agama, akhlak dan kemampuan dalam memberi nafkah."
+            },
+            {
+                id: "pk-13", page: 2, category: "Fiqh Perkahwinan dan Kafa’ah",
+                question: "Apakah Hukum Akad Nikah Tanpa Kebenaran daripada Pihak Berkuasa Agama",
+                articleTitle: "“IRSYAD HUKUM SIRI KE-593 : HUKUM KAHWIN CUKUP RUKUN SEBELUM PENDAFTARAN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/4865-irsyad-al-fatwa-siri-ke-593-hukum-kahwin-cukup-rukun-sebelum-berdaftar",
+                answer: "Pelaksanaan akad nikah tanpa kebenaran pihak berkuasa merupakan satu perbuatan yang menyalahi undang-undang dan boleh jatuh kepada hukum berdosa kerana melanggar arahan pemerintah (uli al-amri). Ketetapan ini digubal bertujuan menjaga kepentingan dan kesejahteraan masyarakat bagi mengelakkan sebarang bentuk penganiayaan berlaku kepada mana-mana pihak. Oleh itu, selagimana arahan pemerintah tersebut tidak bertentangan dengan hukum syarak sekaligus membawa kebaikan kepada umat manusia, maka setiap umat Islam wajib mematuhinya. Walaubagaimanapun, status sah atau tidak perkahwinan itu menurut hukum syarak bergantung kepada penelitian rukun dan syarat nikah."
+            },
+
+            // HALAMAN 3: FIQH TALAK & PERCERAIAN (7 Artikel)
+            {
+                id: "tl-1", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Hukum Talak dalam Aplikasi Whatsapp",
+                articleTitle: "“AL-KAFI #1014: CERAI MENGGUNAKAN APLIKASI WHATSAPP”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/2967-al-kafi-1014-cerai-menggunakan-aplikasi-whatsapp",
+                answer: "Muzakarah Jawatankuasa Fatwa Majlis Kebangsaan memutuskan bahawasanya talak yang dilakukan dalam bentuk tulisan yang jelas daripada seorang suami yang ditujukan kepada isterinya secara khusus melalui sms, whatsapp, e-mel dan sebagainya dikira lafaz secara kinayah walaupun menggunakan lafaz sarih seperti cerai dan talak. Hal ini kerana mesej melalui aplikasi-aplikasi tersebut termasuk di dalam *khabar* yang boleh jadi ia benar dan boleh juga menjadi dusta. Apabila berlaku situasi ini, maka hakim akan menyoal si suami berkaitan niatnya. Jika dia memang berniat untuk menceraikan isterinya, maka talak dikira jatuh dan jika sebaliknya maka ia tidak dikira jatuh."
+            },
+            {
+                id: "tl-2", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Bagaimanakah Status Perkahwinan apabila Suami Hilang dalam Satu Tempoh yang Lama",
+                articleTitle: "“IRSYAD HUKUM SIRI KE #193 : SUAMI HILANG, PULANG SELEPAS 6 BULAN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/864-irsyad-al-fatwa-siri-ke-suami-hilang-pulang-selepas-6-bulan",
+                answer: "Berlaku khilaf dalam kalangan ulama’ mengenai jika si suami hilang dalam keadaan terputus khabar berita dan tidak diketahui lokasi keberadaannya. Jabatan Mufti Wilayah Persekutuan memilih pandangan yang masyhur dalam kalangan Ulama’ Syafie di mana tempoh mafqud diserahkan kepada ijtihad para hakim dalam menentukannya sekaligus meraikan akta yang telah ditetapkan di Malaysia melalui Mahkamah Syariah. Jika telah disahkan oleh hakim berserta dengan bukti yang mencukupi bahawa suaminya telah meninggal dunia, maka si isteri boleh terus berkahwin lain setelah tamat iddah dan si isteri perlu mendapatkan pengesahan dan perintah yang berkaitan daripada Mahkamah Syariah sebelum meneruskan perkahwinan baharu. Sekiranya suami yang hilang kembali semula setelah tamat tempoh mafqud, beliau berhak memilih untuk menikahi isterinya kembali."
+            },
+            {
+                id: "tl-3", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Jika Suami Melakukan Ta’lik Talak, Kemudian Berlaku Talak dan Rujuk Semula selepas itu, Adakah Ta’lik itu Masih Valid",
+                articleTitle: "“AL-KAFI #2028: ADAKAH LAFAZ TAKLIK TALAK MASIH KEKAL WALAUPUN DAH BERLAKU”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/6236-al-kafi-2028-adakah-lafaz-taklik-talak-masih-kekal-walaupun-dah-berlaku",
+                answer: "Ta’lik talak akan jatuh apabila berlaku perkara yang ditaklikkan untuk kali pertama sahaja. Sekiranya suami dan isteri tersebut rujuk semula dalam tempoh iddah, maka ta’lik yang sudah berlaku tersebut sudah tidak valid melainkan jika si suami melafazkan ta’lik dengan menyebut apa-apa perkataan yang membawa maksud pengulangan seperti “setiap kali” maka jatuh talak setiap kali perkara dita’likkan itu berlaku."
+            },
+            {
+                id: "tl-4", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Bagaimanakah Pengiraan Talak yang Jatuh jika Talak 1 diulang sebanyak 3 kali",
+                articleTitle: "“Hukum Melafazkan Talak Melebihi Satu”",
+                sourceName: "Jabatan Mufti Negeri Perlis",
+                sourceUrl: "https://muftiperlis.gov.my/index.php/himpunan-fatwa-negeri/923-hukum-melafazkan-talak-melebihi-satu",
+                answer: "Mesyuarat Jawatankuasa Fatwa Perlis memutuskan bahawa talak yang diulang berulang kali melebihi satu talak seperti “aku ceraikan kamu, aku ceraikan kamu, aku ceraikan kamu” sama ada secara lafaz, tulisan atau isyarat hanya dikira satu talak sahaja."
+            },
+            {
+                id: "tl-5", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Adakah Lafaz Talak Secara Dipaksa Menyebabkan Jatuh Talak",
+                articleTitle: "“#1754: Lafaz Talak Kerana Terpaksa”",
+                sourceName: "Portal Rasmi Dr. Zulkifli Mohamad Al-Bakri",
+                sourceUrl: "https://zulkiflialbakri.com/artikel/lafaz-talak-kerana-terpaksa",
+                answer: "Menurut Dr. Zulkifli al-Bakri, sekiranya paksaan itu berbentuk biasa-biasa sahaja maka tidak boleh dia menceraikan isterinya dan jika dia menceraikan juga dikira jatuh talak. Seperti diugut dengan pistol mainan tidak menyebabkan nyawa seseorang itu diancam, maka tidak boleh dia menceraikan isterinya. Jika paksaan itu bersifat membawa kepada ancaman nyawa dan badan, maka ancaman tersebut mengharuskan baginya untuk menceraikan isterinya atas dasar menjaga maqasid syariah iaitu hifz al-nafs."
+            },
+            {
+                id: "tl-6", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Adakah Dikira Jatuh Talak bagi Orang yang Mabuk",
+                articleTitle: "“#4070: Talak Pemabuk Yang Berdosa”",
+                sourceName: "Portal Rasmi Dr. Zulkifli Mohamad Al-Bakri",
+                sourceUrl: "https://zulkiflialbakri.com/artikel/talak-pemabuk-yang-berdosa",
+                answer: "Menurut Dr. Zulkifli al-Bakri, talak yang dilafazkan oleh seseorang yang dalam keadaan mabuk adalah sah kerana perbuatan maksiat/mabuk tersebut dikira dilakukan berdasarkan kehendaknya sendiri bukannya dipaksa. Sekiranya bukan dari kehendak dan pilihannya sendiri seperti dipaksa meminum arak sehingga menyebabkan dia mabuk dan hilang akal, maka tidak jatuh talak kerana dalam situasi tersebut dia berada dalam keadaan yang tidak sedar."
+            },
+            {
+                id: "tl-7", page: 3, category: "Fiqh Talak & Perceraian",
+                question: "Adakah Boleh Jika Isteri Memohon Fasakh Disebabkan Suaminya Mati Pucuk",
+                articleTitle: "“#4114: Memohon Fasakh Disebabkan Suami Mati Pucuk”",
+                sourceName: "Portal Rasmi Dr. Zulkifli Mohamad Al-Bakri",
+                sourceUrl: "https://zulkiflialbakri.com/artikel/memohon-fasakh-disebabkan-suami-mati-pucuk",
+                answer: "Menurut Dr. Zulkifli al-Bakri, sekiranya isteri mendakwa suaminya telah mati pucuk dan beliau telah memohon kepada hakim untuk membubarkan perkahwinan, maka hakim hendaklah memberikan tempoh setahun bagi menguji dan memastikan keadaan suami. Sekiranya dalam tempoh setahun tersebut beliau melakukan persetubuhan dengan isterinya, maka tidak boleh fasakh kerana telah gugur sebab yang membolehkan fasakh. Namun, sekiranya berlaku sebaliknya, perkahwinan tersebut boleh difasakhkan kerana mati pucuk merupakan aib yang menghalang tujuan utama pernikahan."
+            },
+
+            // HALAMAN 4: FIQH NASAB & STATUS ANAK (7 Artikel)
+            {
+                id: "ns-1", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Penentuan Nasab Anak yang Dilahirkan Kurang 6 Bulan daripada Tempoh Akad Nikah",
+                articleTitle: "“IRSYAD HUKUM SIRI KE-802: KAEDAH PENGIRAAN ENAM BULAN UNTUK PENASABAN ANAK”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/5758-irsyad-al-fatwa-siri-ke-802-kaedah-pengiraan-enam-bulan-untuk-penasaban-anak",
+                answer: "Mesyuarat Khas Jawatankuasa Perundingan Hukum Syarak Wilayah-Wilayah Persekutuan Bil.4 pada tahun 2017 menjelaskan bahawasanya jika anak yang lahir tersebut kurang daripada 6 Bulan *Qamariyyah* dari tarikh akad nikah, maka anak tersebut dikira anak tidak sah taraf/luar nikah. Muzakarah Jawatankuasa Fatwa Kebangsaan juga telah memutuskan seperti yang sedemikian berpandukan pandangan Ulama’ Syafieyyah dan Jumhur Ulama di mana Jumhur Ulama berpendapat bilangan 6 Bulan *Qamariyyah* bersamaan dengan 180 hari dan ditambah 2 detik dengan mengambil kira 30 hari bagi setiap bulan."
+            },
+            {
+                id: "ns-2", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Apakah Status Anak yang Lahir Hasil daripada Sebuah Pasangan Berzina dan Dipaksa Berkahwin",
+                articleTitle: "“AL-KAFI #1636 : HUBUNGAN ANAK LUAR NIKAH DENGAN IBU DAN JUGA ADIK BERADIK PEREMPUAN KEPADA BAPA”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/4258-al-kafi-1636-hubungan-anak-luar-nikah-dengan-ibu-dan-juga-adik-beradik-perempuan-kepada-bapa",
+                answer: "Jika kedua-dua pasangan yang berzina itu berkahwin, kemudian slps 6 bulan dari tempoh perkahwinan tersebut beliau melahirkan anak, maka anak tersebut boleh dinasabkan kepada suami wanita tersebut walaupun anak tersebut hasil daripada zina sebelum berkahwin. Jika anak tersebut kurang daripada 6 bulan dari tarikh perkahwinan, maka anak tersebut tidak boleh dinasabkan kepada suami wanita tersebut."
+            },
+            {
+                id: "ns-3", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Bolehkah Anak Tak Sah Taraf Dinasabkan kepada Bapa Biologinya",
+                articleTitle: "“BAYAN LINNAS SIRI KE-106 : ISU PENAMAAN “BIN/BINTI ABDULLAH” KEPADA ANAK TIDAK SAH TARAF OLEH MAHKAMAH RAYUAN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/bayan-linnas/736-bayan-linnas-siri-ke-106-isu-penamaan-bin-binti-abdullah-kepada-anak-tidak-sah-taraf-oleh-mahkamah-rayuan",
+                answer: "Mesyuarat Jawatankuasa Perundingan Hukum Syarak Pejabat Wilayah Persekutuan pada tahun 2017 memutuskan bahawa anak yang tidak sah taraf tidak boleh dibinkan atau dibintikan kepada bapa biologinya sebagaimana yang diputuskan oleh Jumhur Ulama’. Sebaliknya mereka perlu dibin/bintikan kepada Abdullah. Keputusan ini diputuskan dengan menggunapakai asas di mana maslahah umum lebih utama dijaga dibandingkan dengan maslahah khusus kerana ini bertepatan dengan Maqasid Syariah yang meletakkan pemeliharaan nasab sebagai satu perkara yang *dharuriyyah* dalam Islam."
+            },
+            {
+                id: "ns-4", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Adakah Anak Tidak Sah Taraf Mendapat Faraid",
+                articleTitle: "“AL-KAFI #2002: ADAKAH ANAK LUAR NIKAH TIDAK DAPAT FARAID?”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/5987-al-kafi-2002-adakah-anak-luar-nikah-tidak-dapat-faraid",
+                answer: "Anak tidak sah taraf tidak boleh mewarisi harta pusaka bapa biologinya dan waris-waris lain di sebelah bapa secara faraid kerana anak tidak sah taraf dianggap tidak mempunyai bapa dari sudut syarak. Oleh itu dalam perwarisan harta pusaka, anak tersebut boleh mewarisi harta ibunya dan adik-beradik seibu sahaja secara faraid kerana nasabnya hanya sabit pada ibu adapun pada sebelah bapa tidak berlaku sebarang sabitan menurut syarak."
+            },
+            {
+                id: "ns-5", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Siapakah yang Dianggap Ibu apabila Lahir Anak Hasil Ibu Tumpang",
+                articleTitle: "“IRSYAD HUKUM KE-130: HUKUM TERHADAP PENGGUNAAN IBU TUMPANG (SURROGATE MOTHER)”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/1235-irsyad-al-fatwa-ke-130-hukum-terhadap-penggunaan-ibu-tumpang-surrogate-mother",
+                answer: "Badan Fatwa Negeri di Malaysia seperti Mesyuarat Jawatankuasa Perunding Hukum Syarak Negeri Pahang, Jawatankuasa Fatwa Negeri Selangor dan Jabatan Mufti Wilayah Persekutuan sebulat suara telah memutuskan bahawa hukum penggunaan kaedah ibu tumpang untuk mendapatkan zuriat adalah haram kerana berlaku kekeliruan dari sudut nasab anak. Pengharaman ini berlaku bertitik tolak dari maqasid syariah iaitu prinsip hifz al-Nasl."
+            },
+            {
+                id: "ns-6", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Apakah Hukum Menggunakan Kaedah Persenyawaan Bayi Tabung Uji (IVF) yang Menggunakan Benih Suami Isteri yang Sah di sisi Syarak",
+                articleTitle: "“AL-KAFI #858 : HUKUM MENGGUNAKAN TABUNG SPERMA DARIPADA SUAMI YANG SUDAH MATI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/2694-al-kafi-858-hukum-menggunakan-tabung-sperma-daripada-suami-yang-sudah-mati",
+                answer: "Muzakarah Jawatankuasa Fatwa Majlis Kebangsaan memutuskan bahawa bayi tabung uji dari benih suami isteri yang dicantumkan secara ‘terhormat’ adalah sah di sisi syarak dan bayi yang lahir itu boleh menjadi wali sekaligus berhak mewarisi harta pusaka ibu dan bapanya yang sah melalui hubungan nasab. Sebaliknya jika benih tersebut diambil daripada bukan suami isteri yang sah, maka bayi tabung uji tersebut adalah tidak sah di sisi syarak."
+            },
+            {
+                id: "ns-7", page: 4, category: "Fiqh Nasab & Status Anak",
+                question: "Apakah Hukum Menggunakan Sperma Suami yang Telah Meninggal Dunia melalui Kaedah Bank Sperma menurut Syarak",
+                articleTitle: "“AL-KAFI #858 : HUKUM MENGGUNAKAN TABUNG SPERMA DARIPADA SUAMI YANG SUDAH MATI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/2694-al-kafi-858-hukum-menggunakan-tabung-sperma-daripada-suami-yang-sudah-mati",
+                answer: "Hukum menggunakan sperma suami yang telah meninggal dunia melalui kaedah bank sperma adalah haram di sisi syarak dan pengharaman ini merupakan pengharaman secara qat’ie sama ada dilakukan secara in-vitro (luar rahim) atau dalam rahim. Hal ini kerana hubungan perkahwinan tamat dengan tamatnya hayat seseorang (kematian). Oleh itu, benih tersebut dikira bukan benih suaminya."
+            },
+
+            // HALAMAN 5: FIQH IDDAH (7 Artikel)
+            {
+                id: "id-1", page: 5, category: "Fiqh Iddah",
+                question: "Bagaimanakah Tempoh Iddah bagi Wanita Tua yang Menopaus",
+                articleTitle: "“AL-KAFI #506: IDDAH BAGI WANITA MENOPAUS”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/2084-al-kafi-506-iddah-bagi-wanita-menopaus",
+                answer: "Iddah bagi wanita yang *menopaus* terbahagi kepada 2 sama ada iddah kematian suami ataupun iddah diceraikan suami. Jika wanita yang *menopaus* tersebut diceraikan oleh suaminya, maka iddahnya adalah 3 bulan dan jika wanita tersebut kematian suaminya, maka iddahnya adalah selama 4 bulan 10 hari."
+            },
+            {
+                id: "id-2", page: 5, category: "Fiqh Iddah",
+                question: "Bagaimanakah Iddah bagi Wanita Keguguran Kandungan yang Kurang 4 Bulan",
+                articleTitle: "“IRSYAD HUKUM SIRI KE- 428 : TEMPOH ‘IDDAH BAGI WANITA YANG KEGUGURAN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/4227-irsyad-al-fatwa-siri-ke-428-tempoh-iddah-bagi-wanita-yang-keguguran",
+                answer: "Jika janin yang gugur tersebut masih lagi dalam bentuk *‘alaqah* (segumpal darah) iaitu kira-kira kurang daripada 80 hari dari waktu kemungkinan berlakunya persetubuhan, maka janin tersebut tidak dianggap sebagai kandungan yang sebenar. Oleh itu wajib bagi wanita yang berada dalam situasi ini beriddah seperti wanita lain iaitu 3 kali suci bagi wanita yang diceraikan suami atau 4 bulan 10 hari bagi wanita yang kematian suami."
+            },
+            {
+                id: "id-3", page: 5, category: "Fiqh Iddah",
+                question: "Berapakah Tempoh Iddah bagi Isteri/Wanita yang Suaminya Hilang (Mafqud)",
+                articleTitle: "“IRSYAD HUKUM SIRI KE #193 : SUAMI HILANG, PULANG SELEPAS 6 BULAN”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/864-irsyad-al-fatwa-siri-ke-suami-hilang-pulang-selepas-6-bulan",
+                answer: "Iddah bagi isteri/wanita yang suaminya hilang dan tidak dijumpai adalah 4 bulan 10 hari sebagaimana iddah kematian suami setelah disahkan oleh Mahkamah Syariah bahawasanya suaminya tersebut telah dihukumkan meninggal dunia secara anggapan kematian selepas melakukan penelitian dan siasatan secara sewajarnya."
+            },
+            {
+                id: "id-4", page: 5, category: "Fiqh Iddah",
+                question: "Apakah Hukum Wanita Keluar daripada Rumah ketika Tempoh Iddah untuk Bekerja",
+                articleTitle: "“HUKUM KELUAR BEKERJA BAGI WANITA KEMATIAN SUAMI”",
+                sourceName: "Jabatan Mufti Negeri Selangor",
+                sourceUrl: "https://www.muftiselangor.gov.my/2023/10/17/6-taudih-al-hukmi-hukum-keluar-bekerja-bagi-wanita-beriddah-kematian-suami/",
+                answer: "Wanita kematian suami dibolehkan keluar daripada rumah dalam tempoh iddah sekadar keperluan sahaja seperti bekerja untuk menyara kehidupan bagi dirinya atau tanggungannya. Setelah siap bekerja, wanita tersebut hendaklah segera pulang ke rumah kerana hajatnya telah dipenuhi. Jika majikan memberikan inisiatif bekerja daripada rumah (WFH), maka wanita tersebut tidak dibolehkan untuk keluar daripada rumah."
+            },
+            {
+                id: "id-5", page: 5, category: "Fiqh Iddah",
+                question: "Apakah Hukum Wanita yang Beriddah Menunaikan Umrah & Haji",
+                articleTitle: "“IRSYAD HUKUM KE-154: HUKUM BAGI PEREMPUAN YANG KEMATIAN SUAMI DAN MASIH DI DALAM ‘IDDAH MENUNAIKAN UMRAH”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/1394-irsyad-al-fatwa-ke-154-hukum-bagi-perempuan-yang-kematian-suami-dan-masih-di-dalam-iddah-menunaikan-umrah",
+                answer: "Tidak boleh bagi wanita yang beriddah untuk keluar menunaikan umrah sebelum sempurna iddahnya. Begitu juga dalam isu haji, 4 mazhab muktabar telah bersepakat bahawa wanita yang masih beriddah kematian suami tidak boleh keluar daripada rumah untuk mengerjakan haji kerana syarak tidak membenarkan wanita untuk keluar daripada rumah ketika masih dalam tempoh iddah. Adapun jika perempuan itu keluar juga dari rumahnya untuk menunaikan umrah, maka perbuatannya itu haram dan berdosa tetapi hukum pelaksanaan ibadah umrah tersebut adalah sah di sisi syarak."
+            },
+            {
+                id: "id-6", page: 5, category: "Fiqh Iddah",
+                question: "Hukum Calon Wanita Berkempen untuk Pilihanraya dalam Tempoh Iddah",
+                articleTitle: "“BAYAN LINNAS SIRI KE-61: CALON WANITA BERKEMPEN UNTUK PILIHANRAYA DALAM KEADAAN ‘IDDAH”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/bayan-linnas/1159-bayan-linnas-siri-61-calon-wanita-berkempen-untuk-pilihanraya-dalam-keadaan-iddah",
+                answer: "Menurut Sheikh Dr. Abdul Rahman al-Kilani (Pengerusi Rabitah Ulama’ Jordan), dibolehkan bagi calon wanita yang keluar daripada rumahnya untuk berkempen bersempena dengan pilihanraya sedangkan dirinya masih berada dalam tempoh iddah kerana urusan tersebut merupakan suatu keperluan baginya dengan syarat tidak ada lagi orang lain yang dapat menggantikan tempatnya dari sudut keilmuan dan kepimpinan."
+            },
+            {
+                id: "id-7", page: 5, category: "Fiqh Iddah",
+                question: "Apakah Hukum Wanita yang Beriddah Membuat Live Media Sosial",
+                articleTitle: "“AL-KAFI #2056: WANITA DALAM IDDAH KEMATIAN SUAMI BUAT LIVE MEDIA SOSIAL”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/6587-al-kafi-2056-wanita-dalam-iddah-kematian-suami-buat-live-media-sosial",
+                answer: "Dibolehkan bagi wanita yang beriddah untuk membuat live kerana penetapan tempoh iddah ini bukanlah penghalang kepada wanita yang kematian suami untuk membuat live. Selagimana perbuatan tersebut berfaedah dan patuh syariat, maka dibolehkan bagi merai dan menjaga kebajikan wanita muslimah. Live media sosial ini tidak termasuk dalam makna keluar rumah yang dilarang dalam *ihdad* selagimana tiada unsur pendedahan, berhias berlebihan (*bertabarruj*) atau melalaikan."
+            },
+
+            // HALAMAN 6: FIQH NAFKAH (6 Artikel)
+            {
+                id: "nf-1", page: 6, category: "Fiqh Nafkah",
+                question: "Apakah Hukum Memberikan Nafkah kepada Isteri yang Bekerja",
+                articleTitle: "“#226 Nafkah Isteri Bekerja”",
+                sourceName: "Portal Rasmi Dr. Zulkifli Mohamad Al-Bakri",
+                sourceUrl: "https://zulkiflialbakri.com/artikel/nafkah-isteri-bekerja",
+                answer: "Wajib bagi seorang suami memberikan nafkah kepada isterinya tanpa mengira banyak ataupun sedikit walaupun isterinya sudah bekerja. Hal ini kerana tugas seorang suami bertanggungjawab terhadap keperluan isteri dan anak-anaknya berdasarkan kemampuannya. Walaubagaimanapun, isteri boleh melepaskan hak nafkahnya jika beliau redha dan mengizinkan suami untuk tidak memberi nafkah."
+            },
+            {
+                id: "nf-2", page: 6, category: "Fiqh Nafkah",
+                question: "Adakah Nafkah Diwajibkan dalam Bentuk Wang Tunai",
+                articleTitle: "“AL-KAFI #1916: ADAKAH SUAMI WAJIB MENYATAKAN SECARA KHUSUS NAFKAH YANG DIBERIKAN KEPADA ISTERI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/en/artikel/al-kafi-li-al-fatawi/5516-al-kafi-1916-adakah-suami-wajib-menyatakan-secara-khusus-nafkah-yang-diberikan-kepada-isteri",
+                answer: "Menjadi kewajipan bagi seorang suami hanya untuk menyediakan nafkah asas secara umum kepada isterinya seperti makanan, alat kebersihan diri dan seumpamanya mengikut kemampuannya dan tidak diwajibkan kepada suami untuk memberi nafkah dalam bentuk wang tunai. Akan tetapi kesemua keperluan nafkah asas tersebut juga boleh ditukarkan kepada bentuk wang tunai kepada isteri jika isteri hendak membeli sendiri nafkah keperluannya."
+            },
+            {
+                id: "nf-3", page: 6, category: "Fiqh Nafkah",
+                question: "Siapakah yang Menjadi Keutamaan sama ada Nafkah Ibu bapa atau Nafkah Isteri",
+                articleTitle: "“AL-KAFI #1428: ANTARA NAFKAH ISTERI DAN IBU BAPA: MANA PERLU DIUTAMAKAN?”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/3804-al-kafi-1428-antara-nafkah-isteri-dan-ibu-mana-perlu-diutamakan",
+                answer: "Nafkah kepada isteri lebih diutamakan dan didahulukan berbanding nafkah kepada kedua ibu bapa melainkan berada dalam situasi di mana ibu bapa tersebut tidak berkemampuan dalam menyediakan ubat-ubatan, rawatan dan makan minum yang menjadi asas kehidupan. Dalam situasi ini, nafkah kepada kedua ibu bapa wajib diutamakan terlebih dahulu berbanding isteri bagi menjaga prinsip maqasid syariah iaitu hifz al-nafs."
+            },
+            {
+                id: "nf-4", page: 6, category: "Fiqh Nafkah",
+                question: "Adakah Isteri yang Dipenjara Berhak Memperoleh Nafkah",
+                articleTitle: "“AL-KAFI #1962: HUKUM NAFKAH ISTERI YANG DIPENJARA”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/en/artikel/al-kafi-li-al-fatawi/5775-al-kafi-1962-hukum-nafkah-isteri-yang-dipenjara",
+                answer: "Menurut Mazhab al-Syafie, nafkah bagi isteri diwajibkan ketika mana suami memiliki hak tamkin iaitu hak untuk bersama dengan isteri. Ulama Mazhab Syafie berpandangan apabila seseorang isteri terhalang untuk bersama dengan suami seperti jika isteri ditahan di penjara, maka nafkah ke atasnya gugur kerana suami tidak memperoleh haknya untuk bersama dengan isteri."
+            },
+            {
+                id: "nf-5", page: 6, category: "Fiqh Nafkah",
+                question: "Adakah Seorang Bapa Masih Wajib Memberikan Nafkah Anak selepas Anak Mencapai Umur 18 tahun",
+                articleTitle: "“IRSYAD HUKUM SIRI KE-757 : TANGGUNGJAWAB NAFKAH SEORANG ISTERI DAN ANAKNYA ATAS KEMATIAN SUAMI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-umum-cat/5538-irsyad-al-fatwa",
+                answer: "Menurut Undang-Undang Keluarga Islam Wilayah Persekutuan, perintah nafkah anak kebiasaannya tamat apabila anak mencapai umur 18 tahun. Walaubagaimanapun, Mahkamah Syariah boleh melanjutkan tempoh perintah nafkah tersebut bagi membolehkan anak meneruskan pelajaran, serta mengecualikan anak perempuan yang belum berkahwin dan anak kurang upaya."
+            },
+            {
+                id: "nf-6", page: 6, category: "Fiqh Nafkah",
+                question: "Siapakah yang Bertanggungjawab Menanggung Nafkah Anak Tak Sah Taraf",
+                articleTitle: "“AL-KAFI # 1681: SIAPAKAH YANG MENANGGUNG NAKFAH ANAK TAK SAH TARAF”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/4378-al-kafi-1681-siapakah-yang-menanggung-nakfah-anak-tak-sah-taraf",
+                answer: "Kewajipan memberi nafkah dan menyara hidup anak tak sah taraf terletak atas tanggungjawab ibunya mengikut hukum syarak. Hal ini kerana anak tak sah taraf tidak mempunyai bapa di sisi Islam dan hanya dinasabkan kepada ibunya sahaja."
+            },
+
+            // HALAMAN 7: FIQH HARTA SEPENCARIAN (5 Artikel)
+            {
+                id: "hs-1", page: 7, category: "Fiqh Harta Sepencarian",
+                question: "Apakah Konsep Asas dan Penilaian Syarak Terhadap Harta Sepencarian di Malaysia",
+                articleTitle: "“IRSYAD HUKUM SIRI KE-838: HARTA SEPENCARIAN DARI PERSPEKTIF SYARAK”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://www.muftiwp.gov.my/ms/artikel/irsyad-hukum/umum/5899-irsyad-hukum-siri-ke-838-harta-sepencarian-dari-perspektif-syarak",
+                answer: "Harta sepencarian merujuk kepada harta yang diperoleh bersama oleh suami dan isteri dalam tempoh perkahwinan termasuklah pendapatan yang didapati daripada usaha bersama atau modal antara suami isteri di mana Mahkamah Syariah merupakan institusi yang mempunyai bidang kuasa untuk melaksanakan pembahagian dan penentuan harta tersebut."
+            },
+            {
+                id: "hs-2", page: 7, category: "Fiqh Harta Sepencarian",
+                question: "Adakah Isteri yang Tidak Bekerja atau Suri Rumah Berhak Menuntut Harta Sepencarian",
+                articleTitle: "“Hukum Tuntutan Harta Sepencarian Bagi Isteri Yang Tidak Bekerja”",
+                sourceName: "Portal e-Musykil Jabatan Mufti Negeri Selangor",
+                sourceUrl: "https://emusykil.muftiselangor.gov.my/index.php/site/jawapan?id=2236",
+                answer: "Bekas isteri tetap berhak dan mempunyai landasan undang-undang yang sah untuk menuntut harta sepencarian di Mahkamah Syariah walaupun beliau seorang suri rumah sepenuh masa kerana sumbangan dalam perkahwinan merangkumi sumbangan tidak langsung seperti pengorbanan menguruskan rumah tangga dan menjaga anak-anak."
+            },
+            {
+                id: "hs-3", page: 7, category: "Fiqh Harta Sepencarian",
+                question: "Adakah Tuntutan Harta Sepencarian Boleh Dibuat Semasa Perkahwinan (Poligami)",
+                articleTitle: "“HARTA SEPENCARIAN: KONSEP DAN AMALAN”",
+                sourceName: "Jabatan Kehakiman Syariah Negeri Pulau Pinang (JKSNPP)",
+                sourceUrl: "https://jksnpp.penang.gov.my/index.php/en/component/content/article/84-harta-sepencarian-konsep-dan-amalan?catid=18:penerbitan-mahkamah&Itemid=101",
+                answer: "Tuntutan harta sepencarian di Mahkamah Syariah turut dibenarkan dalam tempoh perkahwinan terutamanya apabila suami memohon kebenaran berpoligami. Berdasarkan Seksyen 23(10)(b) Enakmen Undang-Undang Keluarga Islam, isteri berhak memohon perintah daripada mahkamah supaya diadakan terlebih dahulu pembahagian harta sepencarian sebelum permohonan poligami disahkan."
+            },
+            {
+                id: "hs-4", page: 7, category: "Fiqh Harta Sepencarian",
+                question: "Bolehkah Seorang Suami Menuntut Harta Sepencarian Daripada Harta Pusaka Isterinya",
+                articleTitle: "“AL-KAFI #2005: ADAKAH SUAMI BOLEH MENUNTUT HARTA SEPENCARIAN DARIPADA PUSAKA ISTERI”",
+                sourceName: "Pejabat Mufti Wilayah Persekutuan",
+                sourceUrl: "https://muftiwp.gov.my/en/artikel/al-kafi-li-al-fatawi/5991-al-kafi-2005-adakah-suami-boleh-menuntut-harta-sepencarian-daripada-pusaka-isteri",
+                answer: "Suami berhak mengemukakan tuntutan harta sepencarian terhadap harta peninggalan isterinya yang telah meninggal dunia dengan syarat wujud sumbangan kewangan atau tenaga dalam membantu mengurus serta memperoleh harta tersebut sebelum baki pusaka isteri dibahagikan mengikut faraid."
+            },
+            {
+                id: "hs-5", page: 7, category: "Fiqh Harta Sepencarian",
+                question: "Adakah Waris Berhak Menuntut Harta Sepencarian atas Harta Peninggalan Ibu yang Telah Meninggal Dunia",
+                articleTitle: "“FATWA BERHUBUNG TUNTUTAN HARTA SEPENCARIAN OLEH WARIS SI ISTERI YANG MENINGGAL DUNIA”",
+                sourceName: "Jabatan Mufti Negeri Kelantan",
+                sourceUrl: "https://mufti.kelantan.gov.my/index.php?catid=54&id=12%3Afatwa-berhubung-tuntutan-harta-sepencarian-oleh-waris-si-isteri-yang-meninggal-dunia",
+                answer: "Tuntutan harta sepencarian oleh waris si mati seperti anak-anak atau waris si isteri yang meninggal dunia yang menuntut harta sepencarian daripada suami si mati adalah diharuskan sama ada tuntutan itu kerana perceraian hidup atau perceraian mati bergantung kepada keputusan Mahkamah Syariah."
+            }
+        ];
+
+        /* ==========================================================================
+           3. FUNGSI PEMBANTU KAD FATWA & NAVIGASI 8 HALAMAN
+           ========================================================================== */
+        let currentActivePage = 1;
+
+        function formatAnswerText(txt) {
+            const formatted = txt.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            return formatted.split('\n').map(line => `<p>${line}</p>`).join('');
+        }
+
+        function buildFatwaCard(item, idx, showCatBadge = false) {
+            const catPill = showCatBadge
+                ? `<span class="pill-src" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">${item.category}</span>`
+                : '';
+            return `
+                <article class="fatwa-card" data-search="${(item.question + ' ' + item.articleTitle + ' ' + item.answer).toLowerCase()}">
+                    <div class="fatwa-head">
+                        <div style="flex:1;">
+                            <div class="meta-pills">
+                                <span class="pill-num">Soalan ${idx}</span>
+                                ${catPill}
+                                <span class="pill-src"><i class="fa-solid fa-building-columns"></i> ${item.sourceName}</span>
+                            </div>
+                            <h4 class="fatwa-q">${item.question}</h4>
+                            <div class="fatwa-art"><i class="fa-solid fa-file-lines" style="color:var(--gold);"></i> Artikel Asal: <strong>${item.articleTitle}</strong></div>
+                        </div>
+                        <div class="fatwa-actions">
+                            <button type="button" class="btn-ans" onclick="toggleCard(this)">
+                                <span>Baca Jawapan</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="btn-ext">
+                                <span>Sumber Rasmi</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="fatwa-body">
+                        <div class="ans-box">
+                            <div style="font-size:0.75rem;font-weight:800;color:var(--blue);text-transform:uppercase;margin-bottom:6px;">
+                                <i class="fa-solid fa-scale-balanced"></i> Penjelasan Hukum & Fatwa
+                            </div>
+                            ${formatAnswerText(item.answer)}
+                            <div class="ans-url">
+                                <i class="fa-solid fa-link"></i> Pautan: <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:underline;">${item.sourceUrl}</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function toggleCard(btn) {
+            const card = btn.closest('.fatwa-card');
+            const open = card.classList.toggle('open');
+            btn.querySelector('span').textContent = open ? 'Tutup Jawapan' : 'Baca Jawapan';
+        }
+
+        function toggleAllInPage(pageNum, expand) {
+            const container = document.getElementById(`page-view-${pageNum}`);
+            if (!container) return;
+            container.querySelectorAll('.fatwa-card').forEach(card => {
+                card.classList.toggle('open', expand);
+                const span = card.querySelector('.btn-ans span');
+                if (span) span.textContent = expand ? 'Tutup Jawapan' : 'Baca Jawapan';
+            });
+        }
+
+        function filterWithinCategoryPage(pageNum, query) {
+            const q = query.trim().toLowerCase();
+            const container = document.getElementById(`cat-list-${pageNum}`);
+            if (!container) return;
+            container.querySelectorAll('.fatwa-card').forEach(card => {
+                const match = !q || card.getAttribute('data-search').includes(q);
+                card.style.display = match ? 'block' : 'none';
+            });
+        }
+
+        /* ==========================================================================
+           4. BINA KESEMUA 8 HALAMAN DALAM DOM
+           ========================================================================== */
+        function renderTopTabs() {
+            const bar = document.getElementById('topTabsContainer');
+            bar.innerHTML = PAGES_CONFIG.map(cfg => `
+                <button type="button" class="tab-btn ${cfg.page === currentActivePage ? 'active' : ''}" id="tab-btn-${cfg.page}" onclick="switchPage(${cfg.page})">
+                    <span class="num">${cfg.page}</span>
+                    <i class="${cfg.icon}"></i>
+                    <span>${cfg.short}</span>
+                </button>
+            `).join('');
+        }
+
+        function renderAllEightPages() {
+            const root = document.getElementById('appPagesRoot');
+
+            // 1. Kad Direktori Kategori Fiqh untuk Halaman 1
+            const directoryCardsHTML = PAGES_CONFIG.filter(c => c.isCategory).map(c => {
+                const count = FATWA_LIST.filter(f => f.page === c.page).length;
+                const categoryIndex = c.page - 1;
+                return `
+                    <article class="dir-card">
+                        <div>
+                            <div class="dir-top">
+                                <span class="dir-badge">KATEGORI ${categoryIndex} DARI 6</span>
+                                <div class="dir-icon"><i class="${c.icon}"></i></div>
+                            </div>
+                            <h3>${c.title}</h3>
+                            <p>${c.desc}</p>
+                        </div>
+                        <div class="dir-foot">
+                            <span style="font-size:0.8rem;font-weight:700;color:var(--blue);">${count} Artikel & Soalan</span>
+                            <button type="button" class="btn-go" onclick="switchPage(${c.page})">
+                                <span>Terokai Fatwa</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            // 2. Halaman 1 (Utama, Pengenalan, Carian & Direktori Kategori Fiqh)
+            const page1HTML = `
+                <section class="page-view active" id="page-view-1">
+                    <div class="hero">
+                        <div class="container hero-grid">
+                            <div>
+                                <div class="badge-gold">
+                                    <i class="fa-solid fa-star-and-crescent"></i>
+                                    <span>PORTAL FATWA MUNAKAHAT</span>
+                                </div>
+                                <h1>e-Fatwa <span>Munakahat</span></h1>
+                                <p class="hero-subtitle-text">Himpunan Fatwa dan Penjelasan Hukum Fiqh Kekeluargaan Islam di Malaysia.</p>
+                                <p class="hero-desc-text">Terokai pelbagai isu berkaitan Fiqh Perkahwinan & Kafa'ah, Fiqh Talak & Perceraian, Fiqh Nasab & Status Anak, Fiqh Iddah, Fiqh Nafkah dan Fiqh Harta Sepencarian melalui himpunan fatwa serta penjelasan hukum daripada sumber rasmi.</p>
+
+                                <div class="hero-btns">
+                                    <button type="button" class="btn-gold" onclick="switchPage(2)">
+                                        <i class="fa-solid fa-book-open"></i>
+                                        <span>Terokai Kategori</span>
+                                    </button>
+                                </div>
+
+                                <div class="hero-stats">
+                                    <div class="stat-box">
+                                        <div class="stat-box-icon"><i class="fa-solid fa-layer-group"></i></div>
+                                        <div class="stat-box-text">
+                                            <strong>6 Kategori<br>Utama</strong>
+                                            <span>Fiqh Kekeluargaan<br>Islam</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-box-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                        <div class="stat-box-text">
+                                            <strong>45 Himpunan<br>Artikel</strong>
+                                            <span>Fatwa & Penjelasan<br>Hukum</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-box-icon"><i class="fa-solid fa-building-columns"></i></div>
+                                        <div class="stat-box-text">
+                                            <strong>Sumber<br>Berautoriti</strong>
+                                            <span>Institusi Mufti & Ilmiah</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-card-img">
+                                <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=900&q=80" alt="Masjid">
+                                <div class="hero-card-overlay">
+                                    <div class="arabic">فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ</div>
+                                    <span style="font-size:0.82rem;color:#E2E8F0;">Wadah rujukan ilmiah Fiqh Munakahat dan Ahwal Syakhsiyyah di Malaysia</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <!-- DIREKTORI KATEGORI FIQH -->
+                        <div class="sec-box">
+                            <div class="sec-title-wrap">
+                                <h2>Kategori Fiqh</h2>
+                                <p>Setiap kategori Fiqh Munakahat ditempatkan di dalam halamannya yang tersendiri. Klik mana-mana kad di bawah untuk terus membuka halaman tersebut.</p>
+                            </div>
+                            <div class="dir-grid">${directoryCardsHTML}</div>
+                        </div>
+
+                        <!-- PENGENALAN PLATFORM -->
+                        <div class="sec-box" id="pengenalan-box">
+                            <div class="sec-title-wrap">
+                                <h2>Pengenalan Aplikasi e-Fatwa Munakahat</h2>
+                                <p>Latar belakang dan objektif pembangunan platform rujukan Fiqh Kekeluargaan Islam.</p>
+                            </div>
+                            <div class="intro-card">
+                                <p>Fiqh Munakahat merupakan cabang ilmu fiqh yang membahaskan hukum-hakam berkaitan perkahwinan dan kehidupan berkeluarga menurut syarak di mana perbahasannya merangkumi pelbagai aspek baik daripada sudut sebelum, semasa mahupun selepas perkahwinan. Ilmu ini sangat penting bagi memastikan institusi perkahwinan dibina berlandaskan al-Quran dan al-Sunnah sekaligus berada di atas landasan yang diredhai Allah SWT.</p>
+                                <p>Seiring dengan perkembangan zaman dan kemajuan teknologi, keadaan ini sedikit sebanyak telah mengubah corak kehidupan masyarakat dan akhirnya membawa kepada kemunculan pelbagai isu kontemporari baharu berkaitan kekeluargaan Islam yang memerlukan kepada penelitian dengan lebih mendalam berdasarkan disiplin ilmu dan kaedah istinbat hukum yang muktabar.</p>
+                                <p style="margin-bottom:0;">Oleh itu, aplikasi <strong>e-Fatwa Munakahat</strong> ini dihasilkan sebagai sebuah wadah yang menghimpunkan fatwa-fatwa rasmi serta penjelasan hukum berkaitan Fiqh Munakahat dan Ahwal Syakhsiyyah di Malaysia. Subtopik-subtopik yang diketengahkan antaranya ialah isu berkaitan Fiqh Perkahwinan & Kafa'ah, Fiqh Talak & Perceraian, Fiqh Nasab & Status Anak, Fiqh Iddah, Fiqh Nafkah dan Fiqh Harta Sepencarian . Aplikasi ini berfungsi sebagai medium rujukan dan pendidikan hukum Islam sahaja tanpa menjejaskan kedudukan institusi fatwa serta bidang kuasa pihak berautoriti di Malaysia.</p>
+                            </div>
+                        </div>
+
+                        <!-- CARIAN FATWA PINTAR -->
+                        <div class="sec-box" id="carian-box">
+                            <div class="sec-title-wrap">
+                                <h2>Carian Fatwa Pintar</h2>
+                                <p>Cari sebarang persoalan hukum daripada kesemua 45 artikel atau terus lompat ke kategori berkaitan.</p>
+                            </div>
+                            <div class="search-box">
+                                <div class="search-row">
+                                    <input type="text" id="globalSearchInput" class="inp" placeholder="Taip kata kunci: nikah online, Syarifah, IVF, WhatsApp, iddah, nafkah..." oninput="runGlobalSearch()">
+                                    <select id="globalSearchCat" class="sel" onchange="runGlobalSearch()">
+                                        <option value="all">Semua Kategori (45 Artikel)</option>
+                                        <option value="Fiqh Perkahwinan dan Kafa’ah">Fiqh Perkahwinan dan Kafa’ah</option>
+                                        <option value="Fiqh Talak & Perceraian">Fiqh Talak & Perceraian</option>
+                                        <option value="Fiqh Nasab & Status Anak">Fiqh Nasab & Status Anak</option>
+                                        <option value="Fiqh Iddah">Fiqh Iddah</option>
+                                        <option value="Fiqh Nafkah">Fiqh Nafkah</option>
+                                        <option value="Fiqh Harta Sepencarian">Fiqh Harta Sepencarian</option>
+                                    </select>
+                                    <button type="button" class="btn-gold" onclick="runGlobalSearch()"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                                    <button type="button" class="btn-ghost" style="padding:12px 20px; border:1px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.08); color:#fff; border-radius:8px;" onclick="resetGlobalSearch()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                                </div>
+                                <div class="quick-tags">
+                                    <span>Kata Kunci Pantas:</span>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Nikah Online')">Nikah Online</button>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Syarifah')">Kafa’ah Syed & Syarifah</button>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Kompang')">Adat & Kompang</button>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Tabung Uji')">Bayi Tabung Uji (IVF)</button>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Whatsapp')">Talak WhatsApp</button>
+                                    <button type="button" class="q-tag" onclick="quickSearch('Harta Sepencarian')">Harta Sepencarian</button>
+                                </div>
+                            </div>
+                            <div id="globalSearchResults" style="margin-top:20px;"></div>
+                        </div>
+
+                        <!-- NAVIGASI BAWAH TANPA PERKATAAN NOMBOR HALAMAN -->
+                        <div class="pager-bar">
+                            <span></span>
+                            <button type="button" class="btn-pager" onclick="switchPage(2)">
+                                <span>Seterusnya: Fiqh Perkahwinan dan Kafa’ah</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            // 3. Halaman 2 hingga 7
+            const categoryPagesHTML = PAGES_CONFIG.filter(c => c.isCategory).map(cfg => {
+                const items = FATWA_LIST.filter(f => f.page === cfg.page);
+                const cardsHTML = items.map((item, i) => buildFatwaCard(item, i + 1, false)).join('');
+                const prevCfg = PAGES_CONFIG.find(p => p.page === cfg.page - 1);
+                const nextCfg = PAGES_CONFIG.find(p => p.page === cfg.page + 1);
+
+                const prevLabel = prevCfg.isCategory ? prevCfg.title : prevCfg.short;
+                const nextLabel = nextCfg.isCategory ? nextCfg.title : nextCfg.short;
+
+                return `
+                    <section class="page-view" id="page-view-${cfg.page}">
+                        <div class="container">
+                            <div class="page-Subheader">
+                                <div style="display:flex;align-items:center;gap:10px;font-size:0.86rem;font-weight:700;">
+                                    <button type="button" class="btn-ext" onclick="switchPage(1)">
+                                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman Utama
+                                    </button>
+                                    <span style="color:var(--muted);">/</span>
+                                    <span style="color:var(--blue);">${cfg.title}</span>
+                                </div>
+                                <span class="dir-badge">${cfg.title}</span>
+                            </div>
+
+                            <div class="cat-hero-banner">
+                                <div>
+                                    <div class="badge-gold"><i class="${cfg.icon}"></i> KATEGORI FIQH MUNAKAHAT</div>
+                                    <h2>${cfg.title}</h2>
+                                    <p>${cfg.desc}</p>
+                                </div>
+                                <div class="badge-gold" style="font-size:0.9rem;padding:10px 18px;">
+                                    <i class="fa-solid fa-book-open"></i> ${items.length} Artikel & Soalan
+                                </div>
+                            </div>
+
+                            <div class="cat-toolbar">
+                                <input type="text" class="inp" style="max-width:420px;background:#fff;" placeholder="Tapis soalan dalam ${cfg.title}..." oninput="filterWithinCategoryPage(${cfg.page}, this.value)">
+                                <div style="display:flex;gap:8px;">
+                                    <button type="button" class="btn-ext" onclick="toggleAllInPage(${cfg.page}, true)">
+                                        <i class="fa-solid fa-angles-down"></i> Buka Semua Jawapan
+                                    </button>
+                                    <button type="button" class="btn-ext" onclick="toggleAllInPage(${cfg.page}, false)">
+                                        <i class="fa-solid fa-angles-up"></i> Tutup Semua Jawapan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="fatwa-list" id="cat-list-${cfg.page}">
+                                ${cardsHTML}
+                            </div>
+
+                            <!-- NAVIGASI BAWAH: HANYA NAMA FIQH SAHAJA TANPA HALAMAN -->
+                            <div class="pager-bar">
+                                <button type="button" class="btn-pager" onclick="switchPage(${prevCfg.page})">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    <span>Sebelumnya: ${prevLabel}</span>
+                                </button>
+                                <button type="button" class="btn-pager" onclick="switchPage(${nextCfg.page})">
+                                    <span>Seterusnya: ${nextLabel}</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }).join('');
+
+            // 4. Halaman 8 (Sumber Rujukan Lengkap 45 Artikel & Panduan Fatwa Syariah)
+            const tableRowsHTML = FATWA_LIST.map((item, idx) => `
+                <tr>
+                    <td><strong>${idx + 1}.</strong></td>
+                    <td>
+                        <div style="font-weight:700;color:var(--navy);">${item.articleTitle}</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">${item.question}</div>
+                    </td>
+                    <td>
+                        <button type="button" class="pill-src" style="cursor:pointer;" onclick="switchPage(${item.page})">
+                            ${item.category}
+                        </button>
+                    </td>
+                    <td>${item.sourceName}</td>
+                    <td>
+                        <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="btn-ext">
+                            <span>Buka Sumber</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            `).join('');
+
+            const page8HTML = `
+                <section class="page-view" id="page-view-8">
+                    <div class="container">
+                        <div class="page-Subheader">
+                            <button type="button" class="btn-ext" onclick="switchPage(1)">
+                                <i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman Utama
+                            </button>
+                            <span class="dir-badge">SUMBER RUJUKAN ILMIAH</span>
+                        </div>
+
+                        <div class="cat-hero-banner">
+                            <div>
+                                <div class="badge-gold"><i class="fa-solid fa-building-columns"></i> AUTORITI & INTEGRITI RUJUKAN</div>
+                                <h2>45 Sumber Rujukan Rasmi</h2>
+                                <p>Kandungan yang dihimpunkan di dalam portal e-Fatwa Munakahat merujuk secara langsung kepada artikel ilmiah, keputusan  serta penjelasan hukum daripada Institusi Fatwa di Malaysia</p>
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width:55px;">Bil.</th>
+                                        <th>TAJUK FATWA & PERSOALAN HUKUM</th>
+                                        <th>Kategori Fiqh</th>
+                                        <th>Institusi / Sumber</th>
+                                        <th style="width:150px;">Pautan Rasmi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${tableRowsHTML}</tbody>
+                            </table>
+                        </div>
+
+                        <!-- PANDUAN FATWA SYARIAH (KEMASKINI TAJUK & TEKS RASMI) -->
+                        <div class="intro-card" style="margin-top:28px;">
+                            <h3 style="font-size:1.2rem;margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> Panduan Fatwa Syariah</h3>
+                            <p style="margin-bottom:0;">e-Fatwa Munakahat merupakan medium rujukan dan pendidikan hukum Islam yang menghimpunkan artikel, fatwa dan penjelasan hukum berkaitan Fiqh al-Munakahat dan   Ahwal Syakhsiyyah. Portal ini berfungsi bagi tujuan pengajian serta bimbingan awal dan tidak menjejaskan kedudukan institusi fatwa negeri mahupun bidang kuasa kehakiman Mahkamah Syariah di Malaysia.</p>
+                        </div>
+
+                        <div class="pager-bar">
+                            <button type="button" class="btn-pager" onclick="switchPage(7)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span>Sebelumnya: Fiqh Harta Sepencarian</span>
+                            </button>
+                            <button type="button" class="btn-pager" onclick="switchPage(1)">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Kembali ke Halaman Utama</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            root.innerHTML = page1HTML + categoryPagesHTML + page8HTML;
+        }
+
+        /* ==========================================================================
+           5. FUNGSI TUKAR HALAMAN & CARIAN PINTAR
+           ========================================================================== */
+        function switchPage(pageNum) {
+            currentActivePage = pageNum;
+            document.querySelectorAll('.page-view').forEach(sec => sec.classList.remove('active'));
+            const target = document.getElementById(`page-view-${pageNum}`);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeTab = document.getElementById(`tab-btn-${pageNum}`);
+            if (activeTab) activeTab.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function runGlobalSearch() {
+            const kw = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+            const cat = document.getElementById('globalSearchCat').value;
+            const out = document.getElementById('globalSearchResults');
+
+            if (!kw && cat === 'all') {
+                out.innerHTML = '';
+                return;
+            }
+
+            const matches = FATWA_LIST.filter(item => {
+                const catMatch = (cat === 'all') || (item.category === cat);
+                const kwMatch = !kw || (item.question + ' ' + item.articleTitle + ' ' + item.answer + ' ' + item.sourceName).toLowerCase().includes(kw);
+                return catMatch && kwMatch;
+            });
+
+            if (matches.length === 0) {
+                out.innerHTML = `<div class="intro-card" style="text-align:center;">Tiada artikel ditemui. Sila cuba kata kunci lain.</div>`;
+                return;
+            }
+
+            out.innerHTML = `
+                <div style="background:var(--light-blue);border:1px solid var(--border-blue);padding:12px 18px;border-radius:10px;margin-bottom:14px;font-weight:700;color:var(--navy);">
+                    Ditemui ${matches.length} artikel yang sepadan:
+                </div>
+                <div class="fatwa-list">
+                    ${matches.map((item, i) => buildFatwaCard(item, i + 1, true)).join('')}
+                </div>
+            `;
+        }
+
+        function quickSearch(keyword) {
+            document.getElementById('globalSearchInput').value = keyword;
+            runGlobalSearch();
+        }
+
+        function resetGlobalSearch() {
+            document.getElementById('globalSearchInput').value = '';
+            document.getElementById('globalSearchCat').value = 'all';
+            document.getElementById('globalSearchResults').innerHTML = '';
+        }
+
+        // Inisialisasi semasa laman dimuatkan
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTopTabs();
+            renderAllEightPages();
+        });
+    </script>
+</body>
+</html>
+```
